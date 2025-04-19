@@ -1,45 +1,37 @@
-import { course } from "./constants";
-const Header = ({ course }) => {
-	return (
-		<header>
-			<h1>{course.name}</h1>
-		</header>
-	);
-};
-const Part = ({ part }) => {
+import { Unicafe } from "./Unicafe";
+import { useState } from "react";
+
+const Buttons = ({ handleClick }) => {
 	return (
 		<div>
-			<p>{part.name}</p>
-			<p>N° of Exercises: {part.exercises}</p>
+			<button onClick={() => handleClick("unicafe")}>Unicafe</button>
+			<button onClick={() => handleClick("anecdotes")}>
+				Anecdotes
+			</button>
+			<button onClick={() => handleClick("feedback")}>Feedback</button>
 		</div>
 	);
 };
-const Content = ({ parts }) => {
-	return (
-		<div>
-			{parts.map((part, i) => (
-				<Part key={i} part={part} />
-			))}
-		</div>
-	);
-};
-export const Total = ({ parts }) => {
-	return (
-		<div>
-			<hr />
-			<p>
-				Total of exercises:{" "}
-				{parts.reduce((sum, part) => sum + part.exercises, 0)}
-			</p>
-		</div>
-	);
-};
+
 function App() {
+	const [views, setShowView] = useState({
+		unicafe: false,
+		anecdotes: false,
+		feedback: false,
+	});
+	const handleShowView = (view) => {
+		setShowView((prevViews) => ({
+			...prevViews,
+			[view]: !prevViews[view],
+		}));
+	};
 	return (
 		<>
-			<Header course={course} />
-			<Content parts={course.parts} />
-			<Total parts={course.parts} />
+			<h1>Select what project do u want to view</h1>
+      <Buttons handleClick={handleShowView} />
+			{views.unicafe && <Unicafe />}
+			{views.anecdotes && <div>Anecdotes</div>}
+			{views.feedback && <div>Feedback</div>}
 		</>
 	);
 }
