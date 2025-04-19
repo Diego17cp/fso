@@ -1,3 +1,4 @@
+import { Anecdotes } from "./Anecdotes";
 import { Unicafe } from "./Unicafe";
 import { useState } from "react";
 
@@ -30,8 +31,7 @@ function App() {
 			<h1>Select what project do u want to view</h1>
       <Buttons handleClick={handleShowView} />
 			{views.unicafe && <Unicafe />}
-			{views.anecdotes && <div>Anecdotes</div>}
-			{views.feedback && <div>Feedback</div>}
+			{views.anecdotes && <Anecdotes />}
 		</>
 	);
 }
